@@ -3,7 +3,7 @@
 ## What's this.
 
 https://github.com/Shinpeim/NekogataDrumSequencer を、AngularDartで実装してみたもの。
-**TBD**にて公開中。
+[https://drum-sequencer-f54fe.firebaseapp.com/](https://drum-sequencer-f54fe.firebaseapp.com/)にて公開中。
 
 ### ドメイン知識
 
