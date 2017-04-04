@@ -1,0 +1,24 @@
+<div id="track-selector">
+  <span id="title">Pattern Editor</span>
+
+  <span class="selected-track-info">Track: {{sequencer.selectedTrack.name}}</span>
+
+  <div class="track-container" *ngFor="let track of sequencer.tracks">
+    <label class="track-label" [attr.for]="track.name" (click)="sequencer.selectTrack(track)">{{track.name}}</label>
+    <input class="track-radio" type="radio" [value]="track" [name]="track.name"
+           [checked]="sequencer.selectedTrack.name == track.name"
+           (change)="sequencer.selectTrack(track)">
+  </div>
+</div>
+
+<div id="editor">
+  <div *ngFor="let notes of divideByRawSize(sequencer.notes); let i = index" class="notes-row"
+       [ngClass]="classOfRow(rowIndex(i), sequencer.currentBeatIndex, sequencer.isActive)">
+    <!-- TODO: material-button doesn't trigger clicks. Maybe it doesn't work with custom size by css width and height? -->
+    <div *ngFor="let note of notes; let j = index"
+         class="note"
+         [ngClass]="classOfNote(note)"
+         (click)="sequencer.toggleNote(noteIndex(i, j))">
+    </div>
+  </div>
+</div>

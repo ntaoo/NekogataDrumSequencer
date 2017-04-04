@@ -1,0 +1,25 @@
+<div class="play-button-container">
+  <material-fab id="play-button" raised (trigger)="sequencer.toggle()" [disabled]="!isSetup">
+    <glyph icon="pause" *ngIf="sequencer.isActive"></glyph>
+    <glyph icon="play_arrow" *ngIf="!sequencer.isActive"></glyph>
+  </material-fab>
+</div>
+
+<div class="bpm-slider-container">
+  <span>BPM: {{sequencer.bpm}}</span>
+  <!-- TODO: Waiting for material-slider to be published -->
+  <input id="bpm-slider" #range type="range" [min]="sequencer.minimumBpm" [max]="sequencer.maximumBpm" (change)="sequencer.bpm = parseToInt(range.value)">
+</div>
+
+<div class="pattern-selector-container">
+  <span>Pattern: {{sequencer.selectedPattern.id}}</span>
+  <!-- TODO: The material-radio-group doesn't work and even freeze a browser for some reason. Maybe the angular transformer fails silently? -->
+  <div id="pattern-selector">
+    <input class="pattern-selection"
+           type="radio"
+           *ngFor="let pattern of sequencer.patterns"
+           [value]="pattern"
+           (change)="sequencer.selectPattern(pattern)"
+           [checked]="sequencer.selectedPattern.id == pattern.id">
+  </div>
+</div>

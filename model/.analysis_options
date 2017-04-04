@@ -1,0 +1,25 @@
+# This file allows you to configure the Dart analyzer.
+#
+# The commented part below is just for inspiration. Read the guide here:
+#   https://www.dartlang.org/guides/language/analysis-options
+
+ analyzer:
+   strong-mode: true
+   exclude:
+     - path/to/excluded/files/**
+ linter:
+  rules:
+    - always_declare_return_types
+    - camel_case_types
+    - empty_constructor_bodies
+    - avoid_init_to_null
+    - constant_identifier_names
+    - slash_for_doc_comments
+    - sort_constructors_first
+    - unnecessary_brace_in_string_interp
+    - avoid_init_to_null
+    - hash_and_equals
+    - empty_statements
+    - close_sinks
+    - cancel_subscriptions
+    - invariant_booleans

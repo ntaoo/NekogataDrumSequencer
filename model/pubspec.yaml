@@ -1,0 +1,20 @@
+name: model
+description: The model.
+version: 0.0.1
+
+environment:
+  sdk: '>=1.22.0 <2.0.0'
+
+dependencies:
+  angular2: ^2.2.0
+
+dev_dependencies:
+  test: '>=0.12.0 <0.13.0'
+  mockito: ^2.0.0
+  quiver: any
+
+transformers:
+- angular2
+
+- test/pub_serve:
+    $include: test/**_test{.*,}.dart
