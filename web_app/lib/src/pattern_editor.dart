@@ -12,7 +12,7 @@ import 'package:model/model.dart';
     directives: const [materialDirectives])
 class PatternEditor {
   final DrumSequencer sequencer;
-  int _rawSize = 4;
+  final int _rawSize = 4;
 
   PatternEditor(this.sequencer);
 
