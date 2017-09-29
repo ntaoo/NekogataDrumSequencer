@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:angular/di.dart' show Injectable;
 
+const List beatControllerProviders = const [BeatController, BpmTicker];
+
 typedef void ActionOnBeat(int currentBeatIndex);
 
-const List beatControllerProviders = const [BeatController, BpmTicker];
+typedef void _Action();
 
 @Injectable()
 class BeatController {
@@ -26,6 +28,8 @@ class BeatController {
     _ticker.action = _tickerAction;
   }
 
+  int get bpm => _ticker.bpm;
+
   set bpm(int bpm) {
     if (bpm < minimumBpm || bpm > maximumBpm) {
       throw new ArgumentError.value(bpm, 'bpm',
@@ -35,8 +39,6 @@ class BeatController {
     _ticker.bpm = bpm;
     if (isActive) _ticker.restart();
   }
-
-  int get bpm => _ticker.bpm;
 
   int get currentBeatIndex => _beatLoop.current;
 
@@ -57,18 +59,23 @@ class BeatController {
   }
 }
 
-typedef void _Action();
-
 @Injectable()
 class BpmTicker {
   int bpm = 120;
   _Action _action;
   Timer _timer;
 
-  bool get isActive => _timer?.isActive ?? false;
-
   set action(_Action f) {
     _action = f;
+  }
+
+  bool get isActive => _timer?.isActive ?? false;
+
+  int get _millSecPer16thNote => 60000 ~/ (bpm * 4);
+
+  void restart() {
+    stop();
+    start();
   }
 
   void start() {
@@ -78,16 +85,9 @@ class BpmTicker {
         new Duration(milliseconds: _millSecPer16thNote), (_) => _action());
   }
 
-  void restart() {
-    stop();
-    start();
-  }
-
   void stop() {
     _timer.cancel();
   }
-
-  int get _millSecPer16thNote => 60000 ~/ (bpm * 4);
 }
 
 class _BeatLoop {

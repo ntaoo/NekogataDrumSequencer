@@ -4,5 +4,5 @@
 /// The model of the drum sequencer.
 library model;
 
-export 'src/drum_sequencer.dart';
 export 'src/di_providers.dart';
+export 'src/drum_sequencer.dart';

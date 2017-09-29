@@ -16,22 +16,6 @@ class PatternEditor {
 
   PatternEditor(this.sequencer);
 
-  List<Iterable<Note>> divideByRawSize(List<Note> notes) {
-    List<Iterable<Note>> r = [];
-    for (int i = 0; i < _rawSize; i++) {
-      r.add(notes.skip(i * _rawSize).take(_rawSize));
-    }
-    return r;
-  }
-
-  int rowIndex(int i) => i + 1;
-  Map<String, bool> classOfRow(int rowIndex, int beatIndex, bool isActive) {
-    return {
-      'playing-row': isActive && rowIndex == (beatIndex / _rawSize).ceil()
-    };
-  }
-
-  int noteIndex(int i, int j) => (_rawSize * i) + j + 1;
   Map<String, bool> classOfNote(Note note) {
     bool isSixteenthNote = note == sixteenthNote;
     // Only two kinds of note available in current spec.
@@ -40,4 +24,20 @@ class PatternEditor {
       'rest': !isSixteenthNote,
     };
   }
+
+  Map<String, bool> classOfRow(int rowIndex, int beatIndex, bool isActive) {
+    return {
+      'playing-row': isActive && rowIndex == (beatIndex / _rawSize).ceil()
+    };
+  }
+  List<Iterable<Note>> divideByRawSize(List<Note> notes) {
+    List<Iterable<Note>> r = [];
+    for (int i = 0; i < _rawSize; i++) {
+      r.add(notes.skip(i * _rawSize).take(_rawSize));
+    }
+    return r;
+  }
+
+  int noteIndex(int i, int j) => (_rawSize * i) + j + 1;
+  int rowIndex(int i) => i + 1;
 }

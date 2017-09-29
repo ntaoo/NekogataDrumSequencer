@@ -1,5 +1,7 @@
 import 'dart:async';
+
 import 'package:model/src/drum_sequencer/sound_signals.dart' show SoundSignal;
+
 import 'player/sound.dart' show Sound;
 
 /// Sound Player

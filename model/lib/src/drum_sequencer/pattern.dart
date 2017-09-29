@@ -1,9 +1,30 @@
 import 'dart:collection';
+
 import 'package:model/src/drum_sequencer/sound_signals.dart';
+
 import 'pattern/track.dart';
 
-export 'pattern/track.dart';
 export 'pattern/note.dart';
+export 'pattern/track.dart';
+
+class DrumPattern {
+  final String id;
+  final DrumTracks tracks;
+
+  DrumPattern(this.id, this.tracks);
+
+  DrumTrack get selectedTrack => tracks.selected;
+
+  void selectTrack(DrumTrack track) {
+    tracks.select(track);
+  }
+
+  Iterable<SoundSignal> soundSignalsOf(int beatIndex) {
+    return tracks
+        .map<SoundSignal>((t) => t.soundSignalOf(beatIndex))
+        .where((s) => s != null);
+  }
+}
 
 class DrumPatterns extends IterableMixin<DrumPattern> {
   static final List<String> patternIds = const ["1", "2", "3", "4"];
@@ -32,24 +53,5 @@ class DrumPatterns extends IterableMixin<DrumPattern> {
   void select(DrumPattern pattern) {
     _selected = _patterns.firstWhere((t) => t.id == pattern.id);
     print("pattern selected: ${selected.id}");
-  }
-}
-
-class DrumPattern {
-  final String id;
-  final DrumTracks tracks;
-
-  DrumPattern(this.id, this.tracks);
-
-  DrumTrack get selectedTrack => tracks.selected;
-
-  void selectTrack(DrumTrack track) {
-    tracks.select(track);
-  }
-
-  Iterable<SoundSignal> soundSignalsOf(int beatIndex) {
-    return tracks
-        .map<SoundSignal>((t) => t.soundSignalOf(beatIndex))
-        .where((s) => s != null);
   }
 }

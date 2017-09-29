@@ -1,12 +1,14 @@
 import 'dart:async';
+
 import 'package:angular/di.dart' show Injectable;
+
 import 'drum_sequencer/beat_controller.dart';
-import 'drum_sequencer/sound_signals.dart';
+import 'drum_sequencer/pattern.dart';
+import 'drum_sequencer/pattern/note.dart';
+import 'drum_sequencer/pattern/track.dart';
 import 'drum_sequencer/player.dart';
 import 'drum_sequencer/sequencer.dart';
-import 'drum_sequencer/pattern.dart';
-import 'drum_sequencer/pattern/track.dart';
-import 'drum_sequencer/pattern/note.dart';
+import 'drum_sequencer/sound_signals.dart';
 import 'repository/sound_resource.dart';
 
 export 'drum_sequencer/pattern/note.dart';
@@ -35,7 +37,31 @@ class DrumSequencer {
     _setUp().then((_) => _setupCompleter.complete(true));
   }
 
+  int get bpm => _beatController.bpm;
+
+  set bpm(int v) => _beatController.bpm = v;
+
+  int get currentBeatIndex => _beatController.currentBeatIndex;
+
+  bool get isActive => _beatController.isActive;
   Future<bool> get isSetup => _setupCompleter.future;
+
+  int get maximumBpm => _beatController.maximumBpm;
+  int get minimumBpm => _beatController.minimumBpm;
+
+  Iterable<Note> get notes => selectedTrack.score.notes;
+
+  Iterable<DrumPattern> get patterns => _sequencer.patterns;
+  DrumPattern get selectedPattern => _sequencer.selectedPattern;
+  DrumTrack get selectedTrack => selectedPattern.selectedTrack;
+  Iterable<Track> get tracks => selectedPattern.tracks;
+  void selectPattern(DrumPattern pattern) {
+    _sequencer.selectPattern(pattern);
+  }
+
+  void selectTrack(DrumTrack drumTrack) {
+    _sequencer.selectedPattern.selectTrack(drumTrack);
+  }
 
   /// Start or Stop this drum sequencer.
   void toggle() {
@@ -44,30 +70,6 @@ class DrumSequencer {
     } else {
       _beatController.start();
     }
-  }
-
-  bool get isActive => _beatController.isActive;
-
-  set bpm(int v) => _beatController.bpm = v;
-  int get bpm => _beatController.bpm;
-
-  int get maximumBpm => _beatController.maximumBpm;
-  int get minimumBpm => _beatController.minimumBpm;
-
-  int get currentBeatIndex => _beatController.currentBeatIndex;
-
-  Iterable<DrumPattern> get patterns => _sequencer.patterns;
-  DrumPattern get selectedPattern => _sequencer.selectedPattern;
-  Iterable<Track> get tracks => selectedPattern.tracks;
-  DrumTrack get selectedTrack => selectedPattern.selectedTrack;
-  Iterable<Note> get notes => selectedTrack.score.notes;
-
-  void selectPattern(DrumPattern pattern) {
-    _sequencer.selectPattern(pattern);
-  }
-
-  void selectTrack(DrumTrack drumTrack) {
-    _sequencer.selectedPattern.selectTrack(drumTrack);
   }
 
   void toggleNote(int noteIndex) {

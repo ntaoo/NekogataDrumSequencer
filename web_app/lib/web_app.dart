@@ -4,6 +4,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import 'package:model/model.dart';
+
 import 'src/control_panel.dart';
 import 'src/pattern_editor.dart';
 

@@ -1,14 +1,14 @@
-const SixteenthNote sixteenthNote = const SixteenthNote();
 const Rest rest = const Rest();
+const SixteenthNote sixteenthNote = const SixteenthNote();
 
 abstract class Note {
   const Note();
 }
 
-class SixteenthNote extends Note {
-  const SixteenthNote();
-}
-
 class Rest extends Note {
   const Rest();
+}
+
+class SixteenthNote extends Note {
+  const SixteenthNote();
 }

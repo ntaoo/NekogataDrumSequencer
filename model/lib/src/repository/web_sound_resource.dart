@@ -1,6 +1,7 @@
-import 'dart:html';
 import 'dart:async';
+import 'dart:html';
 import 'dart:web_audio';
+
 import 'package:angular/di.dart';
 import 'package:model/src/drum_sequencer/player/web_sound.dart';
 import 'package:model/src/drum_sequencer/sound_signals.dart';
@@ -10,10 +11,6 @@ import 'package:model/src/repository/sound_resource.dart';
 class WebSoundResource implements SoundResource {
   final String _location = 'packages/model/src/repository/sound_data/';
 
-  Future<Iterable<WebSound>> getAll(Iterable<SoundSignal> soundSignals) {
-    return Future.wait(soundSignals.map((s) => get(s)));
-  }
-
   Future<WebSound> get(SoundSignal soundSignal) async {
     var request = await HttpRequest.request(_uriOf(soundSignal),
         method: 'GET', responseType: 'arraybuffer');
@@ -22,9 +19,13 @@ class WebSoundResource implements SoundResource {
     return new WebSound(soundSignal, context, buffer);
   }
 
-  String _uriOf(SoundSignal soundSignal) =>
-      '$_location${_dataName(soundSignal)}';
+  Future<Iterable<WebSound>> getAll(Iterable<SoundSignal> soundSignals) {
+    return Future.wait(soundSignals.map((s) => get(s)));
+  }
 
   String _dataName(SoundSignal soundSignal) =>
       '${soundSignal.name.toLowerCase()}.wav';
+
+  String _uriOf(SoundSignal soundSignal) =>
+      '$_location${_dataName(soundSignal)}';
 }
