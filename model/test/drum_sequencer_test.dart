@@ -1,14 +1,14 @@
 import 'dart:async';
+
+import 'package:mockito/mockito.dart';
 import 'package:model/src/drum_sequencer.dart';
+import 'package:model/src/drum_sequencer/beat_controller.dart';
 import 'package:model/src/drum_sequencer/player/sound.dart';
 import 'package:model/src/drum_sequencer/sequencer.dart';
-import 'package:model/src/drum_sequencer/beat_controller.dart';
 import 'package:model/src/drum_sequencer/sound_signals.dart';
 import 'package:model/src/repository/sound_resource.dart';
-import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
-
 import 'package:quiver/iterables.dart';
+import 'package:test/test.dart';
 
 void main() {
   DrumSequencer sequencer;
@@ -145,15 +145,6 @@ void main() {
   });
 }
 
-SoundResourceMock _prepareSoundResourceMock(List<Sound> sounds) {
-  var soundResource = new SoundResourceMock();
-  when(soundResource.getAll(sounds.map((s) => s.signal)))
-      .thenReturn(new Future.value(sounds));
-  return soundResource;
-}
-
-class SoundResourceMock extends Mock implements SoundResource {}
-
 List<Sound> _prepareSoundMocks() {
   List<Sound> r = [];
   for (var signal in soundSignals) {
@@ -164,7 +155,12 @@ List<Sound> _prepareSoundMocks() {
   return r;
 }
 
-class SoundMock extends Mock implements Sound {}
+SoundResourceMock _prepareSoundResourceMock(List<Sound> sounds) {
+  var soundResource = new SoundResourceMock();
+  when(soundResource.getAll(sounds.map((s) => s.signal)))
+      .thenReturn(new Future.value(sounds));
+  return soundResource;
+}
 
 class BpmTickerDouble extends BpmTicker {
   Function action;
@@ -178,3 +174,7 @@ class BpmTickerDouble extends BpmTicker {
     action();
   }
 }
+
+class SoundMock extends Mock implements Sound {}
+
+class SoundResourceMock extends Mock implements SoundResource {}

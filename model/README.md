@@ -23,5 +23,4 @@ Corresponding to "Infrastructure Layer" of "Clean Architecture".
 
 # How to run test.
 
-    pub serve --port=8081
-    pub run test --pub-serve=8081 -p content-shell
+    pub run test
