@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'dart:async';
 import 'dart:web_audio';
-import 'package:angular2/angular2.dart';
+import 'package:angular/di.dart';
 import 'package:model/src/drum_sequencer/player/web_sound.dart';
 import 'package:model/src/drum_sequencer/sound_signals.dart';
 import 'package:model/src/repository/sound_resource.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:angular2/angular2.dart' show Injectable;
+import 'package:angular/di.dart' show Injectable;
 
 typedef void ActionOnBeat(int currentBeatIndex);
 

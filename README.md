@@ -37,5 +37,5 @@ Modelの状態変化の検知とViewの更新は、現状ではAngularのChange 
 
 #### 現在の制限
 
-Domain層がWeb API(WebAudio in dart:html)に依存している。また、DIのためにpackage:angular2にも依存している。
+Domain層がWeb API(WebAudio in dart:html)に依存している。また、DIのためにpackage:angularにも依存している。
 Flutterなどの他の環境でも再利用可能にする、またテストサーバー(pub serve test)を立ち上げずにテストを実行するためには、それらのcodeを別のpackageに切り出す必要がある。

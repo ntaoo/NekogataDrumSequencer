@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:angular2/angular2.dart' show Injectable;
+import 'package:angular/di.dart' show Injectable;
 import 'package:model/src/drum_sequencer/sound_signals.dart' as s;
 import 'package:model/src/drum_sequencer/pattern.dart';
 
